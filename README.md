@@ -15,3 +15,11 @@ A deterministic rule-based chatbot built as part of the DecodeLabs Internship on
 - app/
 - tests/
 - main.py
+
+## Running the Application
+
+python main.py
+
+## Running Tests
+
+python -m unittest discover tests
