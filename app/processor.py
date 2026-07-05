@@ -4,7 +4,13 @@ from app.constants import FALLBACK_RESPONSE
 
 def process_intent(clean_input: str) -> str:
     """
-    Returns the chatbot response for a given normalized input.
+    Match the user's normalized input against
+    predefined intent patterns.
     """
 
-    return INTENTS.get(clean_input, FALLBACK_RESPONSE)
+    for intent in INTENTS.values():
+
+        if clean_input in intent["patterns"]:
+            return intent["response"]
+
+    return FALLBACK_RESPONSE
