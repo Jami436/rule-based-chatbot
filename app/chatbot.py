@@ -1,3 +1,4 @@
+from app.logger import logger
 from app.normalizer import normalize_input
 from app.processor import process_intent
 from app.guardrails import validate_input
@@ -11,6 +12,14 @@ from app.constants import (
 def start_chatbot():
     """
     Start the chatbot interaction loop.
+
+    The chatbot continuously:
+    1. Accepts user input.
+    2. Validates the input using guardrails.
+    3. Normalizes the input.
+    4. Processes the intent.
+    5. Displays the corresponding response.
+    6. Exits gracefully when an exit command is received.
     """
 
     print("=" * 40)
@@ -18,14 +27,16 @@ def start_chatbot():
     print("=" * 40)
     print(WELCOME_MESSAGE)
 
-    while True:
+    logger.info("Chatbot started.")
 
+    while True:
         user_input = input("\nYou: ")
 
         # Guardrail Layer
         is_valid, message = validate_input(user_input)
 
         if not is_valid:
+            logger.warning(f"Validation failed: {message}")
             print(f"Bot: {message}")
             continue
 
@@ -34,6 +45,7 @@ def start_chatbot():
 
         # Graceful Exit
         if clean_input in EXIT_COMMANDS:
+            logger.info("Chatbot terminated.")
             print("Bot: Goodbye! Have a great day.")
             break
 

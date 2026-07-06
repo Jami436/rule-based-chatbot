@@ -1,5 +1,6 @@
 from app.responses import INTENTS
 from app.constants import FALLBACK_RESPONSE
+from app.logger import logger
 
 
 def process_intent(clean_input: str) -> str:
